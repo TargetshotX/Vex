@@ -1,3 +1,11 @@
+/*
+This is the Near Side Auton. It will 
+1. roll the roller
+2. shoot the pre load
+3. Drive and intake disc
+4. Shoot disc
+*/
+
 #include "vex.h"
 
 using namespace vex;
