@@ -1,5 +1,6 @@
 #include "vex.h"
 #include "robot-config.h"
+vex::timer myTimer;
 
 void Far_Side_6Score(){
 //Far Side Win Point
@@ -23,6 +24,7 @@ void Far_Side_6Score(){
     LeftDriveSmart.spin(reverse, 30, percent);
     RightDriveSmart.spin(forward,45, percent);
   }
+  Intake.spin(forward);
   Drivetrain.stop(); 
   BWingsLeft.set(true);
   BWingsRight.set(true);
@@ -35,21 +37,22 @@ void Far_Side_6Score(){
 //Go Forward and Turn
   Inertial14.resetRotation();
   Drivetrain.turnFor(-10, degrees);
-  while(Inertial14.heading() > (130)) {
+  while(Inertial14.heading() > (140)) {
     LeftDriveSmart.spin(forward, 40, percent);
     RightDriveSmart.spin(reverse,50, percent);
   }
-  Drivetrain.stop(); 
-//Push It All In
+  Drivetrain.stop();
+  Intake.setVelocity(100,percentUnits::pct); 
   Intake.spin(reverse);
+//Push It All In
   Drivetrain.setDriveVelocity(30, percentUnits::pct);
-  wait(.2, sec);
-  Intake.spin(forward);
-  Drivetrain.driveFor(11,inches);
+  wait(.3, sec);
+  Intake.spin(reverse);
+  Drivetrain.driveFor(8,inches);
   Drivetrain.driveFor(-10,inches);
   wait(.2, sec);
-  Drivetrain.driveFor(11,inches);
-  Drivetrain.driveFor(-12,inches);
+  Drivetrain.driveFor(8,inches);
+  Drivetrain.driveFor(-5,inches);
 
 //Part Two: Three Balls
 //Reset Velocities
@@ -141,135 +144,138 @@ void Near_Side_Elim(){
 void Skills_Auton(){
 //Skills Auton
   Slapper.setVelocity(100,pct);
-  Slapper.spinFor(reverse, 30, sec, 100, velocityUnits::pct);
+  //Slapper.spinFor(reverse, 30, sec, 100, velocityUnits::pct);
   Slapper.spin(reverse);
   Drivetrain.setDriveVelocity(50, percentUnits::pct);
-  Drivetrain.setTurnVelocity(5, percentUnits::pct);
-  Drivetrain.turnFor(18.5, degrees);
-  while(Inertial14.heading()<(18.5)) {
-    LeftDriveSmart.spin(reverse, 15, percent);
-    RightDriveSmart.spin(forward,30, percent);
+  Drivetrain.setTurnVelocity(7, percentUnits::pct);
+  Inertial14.resetHeading();
+  Drivetrain.turnFor(5, degrees);
+  while(Inertial14.heading()>(337.5)) {
+    RightDriveSmart.spin(reverse,5, percent);
+    LeftDriveSmart.spin(forward,10, percent);
   }
   Drivetrain.stop();
   wait(.5,sec);
   Drivetrain.driveFor(115, inches);
-  wait(.5,sec);
+  wait(.2,sec);
   Slapper1.stop();
   Slapper2.stop();
   Drivetrain.stop();
 //Calibrate Velocities
-  Drivetrain.setDriveVelocity(35, percentUnits::pct);
+  Drivetrain.setDriveVelocity(20, percentUnits::pct);
   Drivetrain.setTurnVelocity(5, percentUnits::pct);
   Intake.setVelocity(100, percentUnits::pct);
 //Drive Back To Match Load Zone
-//Turn To Middle
-  Inertial14.resetRotation();
-  Drivetrain.turnFor(-35, degrees);
-  while(Inertial14.heading()>(305)) {
-    LeftDriveSmart.spin(forward, 35, percent);
-    RightDriveSmart.spin(reverse,25, percent);
+//Turn To Scoop Triballs
+  FWingsLeft.set(true);
+  Inertial14.resetHeading();
+  Drivetrain.turnFor(-5, degrees);
+  while(Inertial14.heading()<(20)) {
+    RightDriveSmart.spin(forward, 15, percent);
+    LeftDriveSmart.spin(reverse,5, percent);
   }
-  Drivetrain.driveFor(20, inches);  
+  Drivetrain.driveFor(31, inches);
+  Drivetrain.stop();
+  FWingsLeft.set(false);
+  Drivetrain.turnFor(-5, degrees);
+  while(Inertial14.heading()<(80)) {
+    RightDriveSmart.spin(forward, 15, percent);
+    LeftDriveSmart.spin(reverse,5, percent);
+  }
+//Score triballs from the side
+  Drivetrain.setDriveVelocity(40,pct);
+  Drivetrain.driveFor(17.5, inches);
+  wait(.2,sec);
+  Drivetrain.driveFor(-8, inches);
+  wait(.4,sec);
+  Drivetrain.driveFor(8, inches);
+  wait(.2,sec);
+  Drivetrain.driveFor(-20, inches);
+  FWingsLeft.set(false);
 //Part Two: Score from the middle
 //Reset Velocities
   Drivetrain.setDriveVelocity(30, percentUnits::pct);
   Intake.setVelocity(100, percentUnits::pct);
   Drivetrain.setTurnVelocity(10, percentUnits::pct);
 //Go to push spot
-  FWingsRight.set(true);
-  Intake.spin(reverse,100, percentUnits::pct);
-  Inertial14.resetRotation();
-  Drivetrain.turnFor(-45, degrees);
-  while(Inertial14.heading()<(105)) {
-    RightDriveSmart.spin(forward, 35, percent);
-    LeftDriveSmart.spin(reverse,25, percent);
+  Drivetrain.turnFor(-5, degrees);
+  while(Inertial14.heading()<(145.5)) {
+    RightDriveSmart.spin(forward, 15, percent);
+    LeftDriveSmart.spin(reverse,5, percent);
   }
-  Drivetrain.stop(); 
+  Drivetrain.stop();
   Drivetrain.setDriveVelocity(50, percentUnits::pct);
-  Drivetrain.driveFor(46, distanceUnits::in);
+  Drivetrain.driveFor(62.5 , distanceUnits::in);
   wait(.3, sec);
 //Scoring Time:
 //Go To Center
   Drivetrain.setTurnVelocity(5, percentUnits::pct);
-  Drivetrain.turnFor(24, degrees);
-  Intake.spin(reverse,100, percentUnits::pct);
-  Drivetrain.driveFor(50, distanceUnits::in);
+  Inertial14.resetHeading();
+  Drivetrain.turnFor(10, degrees);
+  while(Inertial14.heading()>(295)) {
+    RightDriveSmart.spin(reverse,2.5, percent);
+    LeftDriveSmart.spin(forward,7.5, percent);
+  }
+  Drivetrain.stop();
+  Drivetrain.driveFor(48.5, distanceUnits::in);
   wait(.2, timeUnits::sec);
-  Drivetrain.setTurnVelocity(20, percentUnits::pct);
-//Score With Wings
-  Drivetrain.turnFor(-50,degrees);
+  Drivetrain.setTurnVelocity(5, percentUnits::pct);
+//Score
+  Drivetrain.turnFor(-55,degrees);
+  Drivetrain.setTurnVelocity(20,percentUnits::pct);
+  Drivetrain.setDriveVelocity(35, percentUnits::pct);
+  wait(.7,sec);
   BWingsLeft.set(true);
   BWingsRight.set(true);
-  Drivetrain.setDriveVelocity(30, percentUnits::pct);
-  wait(.7,sec);
-  Drivetrain.driveFor(-36.5, distanceUnits::in);
+  myTimer.reset();
+    if (myTimer.time()< 3) {
+      // If less than 3 seconds, continue doing something
+      Drivetrain.driveFor(-28.5, distanceUnits::in);
+    } else {
+      // Exit the loop
+      return;
+    }
+  wait(500, msec); // Use msec for milliseconds if using VEXcode V5
   Drivetrain.driveFor(15, distanceUnits::in);
   wait(.5,sec);
   Drivetrain.driveFor(-15, distanceUnits::in);
 //Come back to Bar and Turn and Push Triballs
-  Drivetrain.setDriveVelocity(60, percentUnits::pct);
-  Drivetrain.driveFor(15, distanceUnits::in);
-  BWingsLeft.set(false);
-  BWingsRight.set(false);
-  Inertial14.resetRotation();
-  Drivetrain.turnFor(30, degrees);
-  while(Inertial14.heading()<(90)) {
-    LeftDriveSmart.spin(reverse, 30, percent);
-    RightDriveSmart.spin(forward,45, percent);
-  }
-  Drivetrain.driveFor(21, distanceUnits::in);
-  Drivetrain.turnFor(39.5, degrees);
-  BWingsRight.set(true);
-  Drivetrain.driveFor(-25, distanceUnits::in);
-//Scoop and Push Again
-  Drivetrain.setDriveVelocity(20, percentUnits::pct);
-  Inertial14.resetRotation();
-  Drivetrain.turnFor(-57.5, degrees);
-  while(Inertial14.heading()>(215)) {
-    LeftDriveSmart.spin(forward, 45, percent);
-    RightDriveSmart.spin(reverse,30, percent);
-  }
-  BWingsRight.set(true);
-  BWingsLeft.set(true);
-  Drivetrain.setDriveVelocity(90, percentUnits::pct);
-  wait(.5,sec);
-  Drivetrain.driveFor(-30, distanceUnits::in);
-  Drivetrain.driveFor(15, distanceUnits::in);
-  wait(.2,sec);
-  Drivetrain.driveFor(-18, distanceUnits::in);
-  Drivetrain.driveFor(4, distanceUnits::in);
-  BWingsLeft.set(false);
-  BWingsRight.set(false);
-  wait(.5,sec);
-//Go to Side and Push
-  Drivetrain.driveFor(21, distanceUnits::in);
-  Drivetrain.turnFor(39.5, degrees);
-  BWingsRight.set(true);
-  Drivetrain.driveFor(-25, distanceUnits::in);
   Drivetrain.setDriveVelocity(40, percentUnits::pct);
-  Inertial14.resetRotation();
-  Drivetrain.turnFor(-57.5, degrees);
-  while(Inertial14.heading()>(215)) {
-    LeftDriveSmart.spin(forward, 45, percent);
-    RightDriveSmart.spin(reverse,30, percent);
-  }
-  BWingsRight.set(true);
-  BWingsLeft.set(true);
-  Drivetrain.setDriveVelocity(90, percentUnits::pct);
-  wait(.5,sec);
-  Drivetrain.driveFor(-30, distanceUnits::in);
-  Drivetrain.driveFor(15, distanceUnits::in);
-  wait(.2,sec);
-  Drivetrain.driveFor(-18, distanceUnits::in);
-  Drivetrain.driveFor(4, distanceUnits::in);
+  Drivetrain.driveFor(30, distanceUnits::in);
   BWingsLeft.set(false);
   BWingsRight.set(false);
-  wait(.5,sec);
-
-  
-
+//Inertial Turn to turn 90 degress
+  Inertial14.resetHeading();
+  Drivetrain.turnFor(10, degrees);
+  while(Inertial14.heading()>(270)) {
+    RightDriveSmart.spin(reverse,5, percent);
+    LeftDriveSmart.spin(forward,15, percent);
+  }
+//Drive Back To Bar and Turn To Push
+  Drivetrain.driveFor(-25, inches);;
+  Drivetrain.turnFor(10, degrees);
+  while(Inertial14.heading()>(180)) {
+    RightDriveSmart.spin(reverse,5, percent);
+    LeftDriveSmart.spin(forward,15, percent);
+  }
+  Drivetrain.driveFor(34, distanceUnits::in);
+  FWingsLeft.set(true);
+  FWingsRight.set(true);
+  wait(.3,sec);
+  Drivetrain.driveFor(-34, distanceUnits::in);
+  FWingsLeft.set(false);
+  FWingsRight.set(false);
+//Push From the Center
+  Drivetrain.setTurnVelocity(10,percent);
+  Drivetrain.turnFor(-55,degrees);
+  Drivetrain.driveFor(-35, distanceUnits::in);
+  Drivetrain.turnFor(-55,degrees);
+  BWingsLeft.set(true);
+  BWingsRight.set(true);
+  Drivetrain.driveFor(-30, distanceUnits::in);
+  BWingsLeft.set(false);
+  BWingsRight.set(false);
 }
-
 
 
 
@@ -380,12 +386,12 @@ void Far_Side_Safe(){
 //Intake Next
   Drivetrain.turnFor(60, degrees);
   Intake.spin(forward,100, percentUnits::pct);
-  Drivetrain.driveFor(25, distanceUnits::in);
+  Drivetrain.driveFor(32.5, distanceUnits::in);
   wait(.2, timeUnits::sec);
   Drivetrain.setTurnVelocity(30, percentUnits::pct);
 //Score With Wings
   Intake.setVelocity(100,percentUnits::pct);
-  Drivetrain.driveFor(-10, distanceUnits::in);
+  Drivetrain.driveFor(-12, distanceUnits::in);
   Drivetrain.turnFor(-72.5,degrees);
   FWingsLeft.set(true);
   FWingsRight.set(true);
@@ -395,7 +401,7 @@ void Far_Side_Safe(){
   Drivetrain.driveFor(38.5, distanceUnits::in);
 }
 
-void tank_odom_test(){
+void test_errorloop(){
   
 }
 

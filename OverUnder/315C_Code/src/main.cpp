@@ -30,7 +30,7 @@ void pre_auton(void) {
         Brain.Screen.printAt(50, 50, "Far Side Safe");
         break;
       case 5:
-        Brain.Screen.printAt(50, 50, "Odom Test");
+        Brain.Screen.printAt(50, 50, "error loop test");
         break;
       case 6:
         Brain.Screen.printAt(50, 50, "Tank Odom Test");
@@ -71,7 +71,7 @@ void autonomous(void) {
     case 5:
       break;
     case 6:
-      tank_odom_test();
+      test_errorloop();
       break;
     case 7:
       holonomic_odom_test();

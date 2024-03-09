@@ -12,12 +12,12 @@ void Piston_Functions(void){
       BWingsRight.set(false);
     }
 
-    //Elevation:
-    if (Controller1.ButtonL2.pressing()) {
+    //Wings
+    if (Controller1.ButtonX.pressing()) {
       FWingsLeft.set(true);
       FWingsRight.set(true);
     }
-    if (Controller1.ButtonL1.pressing()) {
+    if (Controller1.ButtonB.pressing()) {
       FWingsLeft.set(false);
       FWingsRight.set(false);
     }

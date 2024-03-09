@@ -32,7 +32,7 @@ digital_out Elevation = digital_out(Brain.ThreeWirePort.D);
 #include "vex.h"
 
 //Sensors + Controller
-inertial Inertial14 = inertial(PORT6);
+inertial Inertial14 = inertial(PORT5);
 controller Controller1 = controller(primary);
 
 bool RemoteControlCodeEnabled = true;
@@ -50,6 +50,11 @@ void calibrateIntertialSensor(void) {
   Controller1.Screen.print("Calibration Complete");
 
 }
+
+void errorLoop(void){
+  
+
+};
 
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.

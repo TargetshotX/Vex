@@ -9,12 +9,12 @@ void Motor_Functions(void){
 
   //Slapper:
   // check the ButtonL1/ButtonL2 status to control Slapper
-  if (Controller1.ButtonX.pressing()) {
+  if (Controller1.ButtonL2.pressing()) {
     Slapper.setVelocity(100, percentUnits::pct);
     Slapper.spin(reverse);
     Controller1LeftShoulderControlMotorsStopped = false;
-  }else if (Controller1.ButtonB.pressing()) {
-    Slapper1.stop();
+  }else if (Controller1.ButtonL1.pressing()) {
+    Slapper.stop();
   }
 
   //Intake:

@@ -9,7 +9,7 @@ void Drivetrain_Function(void){
       // calculate the drivetrain motor velocities from the controller joystick axies
       // left = Axis3 + Axis1
       // right = Axis3 - Axis1
-      Drivetrain.setDriveVelocity(35, percentUnits::pct);
+      Drivetrain.setDriveVelocity(100, percentUnits::pct);
       int drivetrainLeftSideSpeed = Controller1.Axis3.position() - Controller1.Axis1.position();
       int drivetrainRightSideSpeed = Controller1.Axis3.position() + Controller1.Axis1.position();
       
